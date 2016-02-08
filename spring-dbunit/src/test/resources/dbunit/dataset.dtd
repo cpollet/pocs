@@ -1,0 +1,8 @@
+<!ELEMENT dataset (
+        TEST*
+        )>
+        <!ELEMENT TEST EMPTY>
+        <!ATTLIST TEST
+                COLUMN1 CDATA #IMPLIED
+                COLUMN2 CDATA #IMPLIED
+                >

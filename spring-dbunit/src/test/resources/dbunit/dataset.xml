@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "src/test/resources/dbunit/dataset.dtd">
+<dataset>
+    <TEST COLUMN1="col1" COLUMN2="col2"/>
+</dataset>
