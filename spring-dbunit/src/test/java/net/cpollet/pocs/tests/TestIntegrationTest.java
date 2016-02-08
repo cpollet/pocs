@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -13,8 +14,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Christophe Pollet
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/spring/test-context.xml")
+@ContextConfiguration("classpath:/spring/init-test-context.xml")
 public class TestIntegrationTest extends BaseIntegrationTest {
+    @Autowired
+    private SystemPropertyConsumer systemPropertyConsumer;
+
     @BeforeClass
     public static void configure() {
         System.setProperty("alreadyDefined", "0");
@@ -42,5 +46,17 @@ public class TestIntegrationTest extends BaseIntegrationTest {
 
         // THEN
         Assert.assertThat(value, CoreMatchers.equalTo("true"));
+    }
+
+    @Test
+    public void systemPropertyConsumerConfigured() {
+        // GIVEN
+        // in spring context
+
+        // WHEN
+        String deinfed = systemPropertyConsumer.getDefined();
+
+        // THEN
+        Assert.assertThat(deinfed, CoreMatchers.equalTo("true"));
     }
 }
