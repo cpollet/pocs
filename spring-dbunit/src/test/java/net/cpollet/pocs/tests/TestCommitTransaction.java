@@ -1,6 +1,7 @@
 package net.cpollet.pocs.tests;
 
 import net.cpollet.pocs.tests.support.base.BaseHibernateIntegrationTest;
+import net.cpollet.pocs.tests.support.dbunit.Dataset;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,19 +15,10 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @author Christophe Pollet
  */
 @ContextConfiguration("classpath:/spring/app-context.xml")
+@Dataset(value = "dbunit/dataset.xml", commit = true)
 public class TestCommitTransaction extends BaseHibernateIntegrationTest {
     @Autowired
     private Service service;
-
-    @Override
-    protected String data() {
-        return "dbunit/dataset.xml";
-    }
-
-    @Override
-    protected boolean needCommittedData() {
-        return true;
-    }
 
     @Test
     public void testWithCommit1() {

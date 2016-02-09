@@ -1,5 +1,6 @@
 package net.cpollet.pocs.tests.support.base;
 
+import net.cpollet.pocs.tests.support.dbunit.Dataset;
 import net.cpollet.pocs.tests.support.dbunit.SpringDatabaseDataSourceConnection;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
@@ -22,6 +23,9 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Christophe Pollet
@@ -41,16 +45,20 @@ public abstract class BaseHibernateIntegrationTest extends BaseIntegrationTest {
     public void prepareDatabase() {
         TransactionTemplate transactionTemplate = prepareTransactionTemplate(needCommittedData());
 
+        final List<String> dataSetPaths = extractDataSetPathsToLoad();
+
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-                LOG.info("Loading data from " + data());
                 try {
                     IDatabaseConnection dbUnitConnection = new SpringDatabaseDataSourceConnection(transactionManager.getDataSource(), "SYSTEM");
-
                     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                    IDataSet dataSet = new FlatXmlDataSetBuilder().build(classLoader.getResourceAsStream(data()));
-                    DatabaseOperation.CLEAN_INSERT.execute(dbUnitConnection, dataSet);
+
+                    for (String dataSetPath : dataSetPaths) {
+                        LOG.info("Loading data from " + dataSetPath);
+                        IDataSet dataSet = new FlatXmlDataSetBuilder().build(classLoader.getResourceAsStream(dataSetPath));
+                        DatabaseOperation.CLEAN_INSERT.execute(dbUnitConnection, dataSet);
+                    }
                 }
                 catch (SQLException | DatabaseUnitException e) {
                     throw new RuntimeException(e);
@@ -59,21 +67,47 @@ public abstract class BaseHibernateIntegrationTest extends BaseIntegrationTest {
         });
     }
 
+    private List<String> extractDataSetPathsToLoad() {
+        Dataset annotation = getClass().getAnnotation(Dataset.class);
+
+        if (annotation == null) {
+            return Collections.emptyList();
+        }
+
+        String dataset = annotation.value();
+
+        if (dataset != null) {
+            return Collections.singletonList(dataset);
+        }
+
+        String[] datasets = getClass().getAnnotation(Dataset.class).values();
+
+        if (datasets != null) {
+            return Arrays.asList(datasets);
+        }
+
+        return Collections.emptyList();
+    }
+
+    private boolean needCommittedData() {
+        Dataset annotation = getClass().getAnnotation(Dataset.class);
+        return annotation != null && annotation.commit();
+    }
+
     private TransactionTemplate prepareTransactionTemplate(boolean mustCommitData) {
         return new TransactionTemplate(transactionManager, needCommittedData() ? COMMIT : NO_COMMIT);
     }
 
-
-    protected abstract String data();
-
-    protected boolean needCommittedData() {
-        return false;
-    }
-
+    /**
+     * Returns the transaction manager
+     */
     protected HibernateTransactionManager getTransactionManager() {
         return transactionManager;
     }
 
+    /**
+     * Returns the current session
+     */
     protected Session getSession() {
         return transactionManager.getSessionFactory().getCurrentSession();
     }

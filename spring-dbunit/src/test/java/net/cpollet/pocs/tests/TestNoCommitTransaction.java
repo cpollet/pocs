@@ -1,6 +1,7 @@
 package net.cpollet.pocs.tests;
 
 import net.cpollet.pocs.tests.support.base.BaseHibernateIntegrationTest;
+import net.cpollet.pocs.tests.support.dbunit.Dataset;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,16 +20,12 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @author Christophe Pollet
  */
 @ContextConfiguration("classpath:/spring/app-context.xml")
+@Dataset("dbunit/dataset.xml")
 public class TestNoCommitTransaction extends BaseHibernateIntegrationTest {
     private static final Logger LOG = LoggerFactory.getLogger(TestNoCommitTransaction.class);
 
     @Autowired
     private Service service;
-
-    @Override
-    protected String data() {
-        return "dbunit/dataset.xml";
-    }
 
     @Before
     public void prepareDatabase() {
