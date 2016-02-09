@@ -1,4 +1,4 @@
-package net.cpollet.pocs.tests.support.dbunit;
+package net.cpollet.pocs.tests.support.database;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Dataset {
+public @interface DataSet {
     String value() default "";
     String[] values() default {};
     boolean commit() default false;

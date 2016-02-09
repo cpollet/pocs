@@ -1,6 +1,6 @@
 package net.cpollet.pocs.tests.support.base;
 
-import net.cpollet.pocs.tests.support.dbunit.Dataset;
+import net.cpollet.pocs.tests.support.database.DataSet;
 import net.cpollet.pocs.tests.support.dbunit.SpringDatabaseDataSourceConnection;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
@@ -68,7 +68,7 @@ public abstract class BaseHibernateIntegrationTest extends BaseIntegrationTest {
     }
 
     private List<String> extractDataSetPathsToLoad() {
-        Dataset annotation = getClass().getAnnotation(Dataset.class);
+        DataSet annotation = getClass().getAnnotation(DataSet.class);
 
         if (annotation == null) {
             return Collections.emptyList();
@@ -80,7 +80,7 @@ public abstract class BaseHibernateIntegrationTest extends BaseIntegrationTest {
             return Collections.singletonList(dataset);
         }
 
-        String[] datasets = getClass().getAnnotation(Dataset.class).values();
+        String[] datasets = getClass().getAnnotation(DataSet.class).values();
 
         if (datasets != null) {
             return Arrays.asList(datasets);
@@ -90,7 +90,7 @@ public abstract class BaseHibernateIntegrationTest extends BaseIntegrationTest {
     }
 
     private boolean needCommittedData() {
-        Dataset annotation = getClass().getAnnotation(Dataset.class);
+        DataSet annotation = getClass().getAnnotation(DataSet.class);
         return annotation != null && annotation.commit();
     }
 

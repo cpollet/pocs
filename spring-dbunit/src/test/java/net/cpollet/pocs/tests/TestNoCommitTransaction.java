@@ -1,7 +1,7 @@
 package net.cpollet.pocs.tests;
 
 import net.cpollet.pocs.tests.support.base.BaseHibernateIntegrationTest;
-import net.cpollet.pocs.tests.support.dbunit.Dataset;
+import net.cpollet.pocs.tests.support.database.DataSet;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +20,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @author Christophe Pollet
  */
 @ContextConfiguration("classpath:/spring/app-context.xml")
-@Dataset("dbunit/dataset.xml")
+@DataSet("dbunit/dataset.xml")
 public class TestNoCommitTransaction extends BaseHibernateIntegrationTest {
     private static final Logger LOG = LoggerFactory.getLogger(TestNoCommitTransaction.class);
 
