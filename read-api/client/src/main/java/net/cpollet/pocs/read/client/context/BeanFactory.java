@@ -2,8 +2,11 @@ package net.cpollet.pocs.read.client.context;
 
 import net.cpollet.pocs.read.api.AttributeService;
 import net.cpollet.pocs.read.api.Attributes;
-import net.cpollet.pocs.read.client.proxy.AttributeServiceProxy;
-import net.cpollet.pocs.read.client.proxy.AttributeServiceProxyImpl;
+import net.cpollet.pocs.read.client.data.Person;
+import net.cpollet.pocs.read.client.proxy.ClientProxy;
+import net.cpollet.pocs.read.client.proxy.ClientProxyImpl;
+import net.cpollet.pocs.read.helper.GenericProxy;
+import net.cpollet.pocs.read.helper.GenericProxyImpl;
 import net.cpollet.pocs.read.helper.ReflectionTransformer;
 import net.cpollet.pocs.read.helper.Transformer;
 
@@ -18,7 +21,8 @@ import java.util.Map;
 public class BeanFactory {
     private static AttributeService attributeService;
     private static Transformer transformer;
-    private static AttributeServiceProxy attributeServiceProxy;
+    private static ClientProxy clientProxy;
+    private static GenericProxy genericProxy;
 
     /**
      * Simulates a Spring-like instantiated singleton bean
@@ -63,11 +67,22 @@ public class BeanFactory {
     /**
      * Simulates a Spring-like instantiated singleton bean
      */
-    public static AttributeServiceProxy attributeServiceProxy() {
-        if (attributeServiceProxy == null) {
-            attributeServiceProxy = new AttributeServiceProxyImpl(attributeService(), transformer());
+    public static ClientProxy clientProxy() {
+        if (clientProxy == null) {
+            clientProxy = new ClientProxyImpl(attributeService(), transformer());
         }
 
-        return attributeServiceProxy;
+        return clientProxy;
+    }
+
+    /**
+     * Simulates a Spring-like instantiated singleton bean
+     */
+    public static GenericProxy genericProxy() {
+        if (genericProxy == null) {
+            genericProxy = new GenericProxyImpl<>(attributeService(), transformer(), Person.class);
+        }
+
+        return genericProxy;
     }
 }

@@ -3,7 +3,8 @@ package net.cpollet.pocs.read.client;
 import net.cpollet.pocs.read.api.AttributeService;
 import net.cpollet.pocs.read.api.Attributes;
 import net.cpollet.pocs.read.client.data.Person;
-import net.cpollet.pocs.read.client.proxy.AttributeServiceProxy;
+import net.cpollet.pocs.read.client.proxy.ClientProxy;
+import net.cpollet.pocs.read.helper.GenericProxy;
 import net.cpollet.pocs.read.helper.Transformer;
 
 import java.util.Arrays;
@@ -16,12 +17,17 @@ import java.util.Map;
 public class ServiceConsumer {
     private final AttributeService attributeService;
     private final Transformer transformer;
-    private final AttributeServiceProxy attributeServiceProxy;
+    private final ClientProxy clientProxy;
+    private final GenericProxy genericProxy;
 
-    public ServiceConsumer(AttributeService attributeService, Transformer transformer, AttributeServiceProxy attributeServiceProxy) {
+    public ServiceConsumer(AttributeService attributeService,
+                           Transformer transformer,
+                           ClientProxy clientProxy,
+                           GenericProxy genericProxy) {
         this.attributeService = attributeService;
         this.transformer = transformer;
-        this.attributeServiceProxy = attributeServiceProxy;
+        this.clientProxy = clientProxy;
+        this.genericProxy = genericProxy;
     }
 
     public void run() {
@@ -40,8 +46,11 @@ public class ServiceConsumer {
         System.out.println("After local transformer");
         displayDTO(result);
 
-        System.out.println("Through proxy");
-        System.out.println(attributeServiceProxy.getPersonAttributes("key", attributes));
+        System.out.println("Through custom proxy");
+        System.out.println(clientProxy.getAttributes("key", attributes));
+
+        System.out.println("Through generic proxy");
+        System.out.println(genericProxy.getAttributes("key", attributes));
     }
 
     private void displayDTO(Map<String, String> result) {

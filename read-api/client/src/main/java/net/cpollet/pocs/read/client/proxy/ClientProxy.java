@@ -9,6 +9,6 @@ import java.util.List;
  * using an instance of {@link net.cpollet.pocs.read.helper.Transformer}.
  * @author Christophe Pollet
  */
-public interface AttributeServiceProxy {
-    Person getPersonAttributes(String key, List<String> attribute);
+public interface ClientProxy {
+    Person getAttributes(String key, List<String> attribute);
 }

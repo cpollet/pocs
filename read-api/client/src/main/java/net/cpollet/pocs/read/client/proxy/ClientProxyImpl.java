@@ -9,17 +9,17 @@ import java.util.List;
 /**
  * @author Christophe Pollet
  */
-public class AttributeServiceProxyImpl implements AttributeServiceProxy {
+public class ClientProxyImpl implements ClientProxy {
     private final AttributeService attributeService;
     private final Transformer transformer;
 
-    public AttributeServiceProxyImpl(AttributeService attributeService, Transformer transformer) {
+    public ClientProxyImpl(AttributeService attributeService, Transformer transformer) {
         this.attributeService = attributeService;
         this.transformer = transformer;
     }
 
     @Override
-    public Person getPersonAttributes(String key, List<String> attribute) {
+    public Person getAttributes(String key, List<String> attribute) {
         return transformer.transform(attributeService.getAttributes(key, attribute), Person.class);
     }
 }
