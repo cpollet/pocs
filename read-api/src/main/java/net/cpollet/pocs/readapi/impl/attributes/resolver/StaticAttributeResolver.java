@@ -1,4 +1,9 @@
-package net.cpollet.pocs.readapi.impl.attributes;
+package net.cpollet.pocs.readapi.impl.attributes.resolver;
+
+import net.cpollet.pocs.readapi.impl.attributes.Attribute;
+import net.cpollet.pocs.readapi.impl.attributes.ColumnAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.DynamicAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.KeyValueAttribute;
 
 import java.util.HashMap;
 import java.util.Map;

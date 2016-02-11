@@ -1,6 +1,7 @@
 package net.cpollet.pocs.readapi.impl.fetching;
 
 import net.cpollet.pocs.readapi.impl.attributes.DynamicAttribute;
+import net.cpollet.pocs.readapi.impl.dto.Person;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -27,11 +28,5 @@ public class DynamicAttributeFetchingStrategy extends BaseFetchingStrategy<Dynam
         }
 
         return result;
-    }
-
-    private final class Person {
-        public Integer getAge() {
-            return 42;
-        }
     }
 }

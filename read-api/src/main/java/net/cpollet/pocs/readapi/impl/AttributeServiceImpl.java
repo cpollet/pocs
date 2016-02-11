@@ -2,7 +2,7 @@ package net.cpollet.pocs.readapi.impl;
 
 import net.cpollet.pocs.readapi.api.AttributeService;
 import net.cpollet.pocs.readapi.impl.attributes.Attribute;
-import net.cpollet.pocs.readapi.impl.attributes.AttributesResolver;
+import net.cpollet.pocs.readapi.impl.attributes.resolver.AttributesResolver;
 import net.cpollet.pocs.readapi.impl.fetching.FetchingStrategiesFactory;
 import net.cpollet.pocs.readapi.impl.fetching.FetchingStrategy;
 
