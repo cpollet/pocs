@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This simulates a bean facotry, such as Spring for instance.
+ * This simulates a bean factory, such as Spring for instance.
  * @author Christophe Pollet
  */
 public class BeanFactory {
