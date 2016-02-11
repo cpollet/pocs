@@ -1,4 +1,4 @@
-package net.cpollet.read.api;
+package net.cpollet.pocs.readapi.api;
 
 import java.util.List;
 import java.util.Map;

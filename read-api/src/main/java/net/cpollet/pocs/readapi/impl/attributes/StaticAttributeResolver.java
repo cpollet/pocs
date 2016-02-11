@@ -1,4 +1,4 @@
-package net.cpollet.read.impl.attributes;
+package net.cpollet.pocs.readapi.impl.attributes;
 
 import java.util.HashMap;
 import java.util.Map;

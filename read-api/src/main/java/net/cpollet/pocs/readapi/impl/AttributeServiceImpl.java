@@ -1,10 +1,10 @@
-package net.cpollet.read.impl;
+package net.cpollet.pocs.readapi.impl;
 
-import net.cpollet.read.api.AttributeService;
-import net.cpollet.read.impl.attributes.Attribute;
-import net.cpollet.read.impl.attributes.AttributesResolver;
-import net.cpollet.read.impl.fetching.FetchingStrategiesFactory;
-import net.cpollet.read.impl.fetching.FetchingStrategy;
+import net.cpollet.pocs.readapi.api.AttributeService;
+import net.cpollet.pocs.readapi.impl.attributes.Attribute;
+import net.cpollet.pocs.readapi.impl.attributes.AttributesResolver;
+import net.cpollet.pocs.readapi.impl.fetching.FetchingStrategiesFactory;
+import net.cpollet.pocs.readapi.impl.fetching.FetchingStrategy;
 
 import java.util.List;
 import java.util.Map;

@@ -1,9 +1,9 @@
-package net.cpollet.read.impl.fetching;
+package net.cpollet.pocs.readapi.impl.fetching;
 
-import net.cpollet.read.impl.attributes.Attribute;
-import net.cpollet.read.impl.attributes.ColumnAttribute;
-import net.cpollet.read.impl.attributes.DynamicAttribute;
-import net.cpollet.read.impl.attributes.KeyValueAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.Attribute;
+import net.cpollet.pocs.readapi.impl.attributes.ColumnAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.DynamicAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.KeyValueAttribute;
 
 /**
  * @author Christophe Pollet

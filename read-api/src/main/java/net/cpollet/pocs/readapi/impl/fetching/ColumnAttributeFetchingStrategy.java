@@ -1,6 +1,6 @@
-package net.cpollet.read.impl.fetching;
+package net.cpollet.pocs.readapi.impl.fetching;
 
-import net.cpollet.read.impl.attributes.ColumnAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.ColumnAttribute;
 
 import java.util.HashMap;
 import java.util.Map;

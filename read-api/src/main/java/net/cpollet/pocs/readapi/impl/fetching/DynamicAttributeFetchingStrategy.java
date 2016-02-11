@@ -1,6 +1,6 @@
-package net.cpollet.read.impl.fetching;
+package net.cpollet.pocs.readapi.impl.fetching;
 
-import net.cpollet.read.impl.attributes.DynamicAttribute;
+import net.cpollet.pocs.readapi.impl.attributes.DynamicAttribute;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

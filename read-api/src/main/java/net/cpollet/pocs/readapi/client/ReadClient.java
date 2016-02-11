@@ -1,9 +1,9 @@
-package net.cpollet.read.client;
+package net.cpollet.pocs.readapi.client;
 
-import net.cpollet.read.api.AttributeService;
-import net.cpollet.read.impl.AttributeServiceImpl;
-import net.cpollet.read.impl.attributes.AttributesResolver;
-import net.cpollet.read.impl.attributes.StaticAttributeResolver;
+import net.cpollet.pocs.readapi.api.AttributeService;
+import net.cpollet.pocs.readapi.impl.AttributeServiceImpl;
+import net.cpollet.pocs.readapi.impl.attributes.AttributesResolver;
+import net.cpollet.pocs.readapi.impl.attributes.StaticAttributeResolver;
 
 import java.util.Arrays;
 import java.util.Map;
