@@ -10,7 +10,7 @@
 
     <modules>
         <module>spring-dbunit</module>
-        <module>rest</module>
+        <module>rest-query</module>
         <module>read-api</module>
         <module>typed-map</module>
     </modules>
