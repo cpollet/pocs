@@ -1,3 +1,6 @@
 *.iml
 read-api/out
 spring-dbunit/target
+TypedMap/target
+rest/target
+read-api/target
