@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.cpollet.pocs</groupId>
-    <artifactId>aggregator</artifactId>
+    <artifactId>pocs-aggregator</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -12,8 +12,7 @@
         <module>spring-dbunit</module>
         <module>rest-query</module>
         <module>read-api</module>
-        <module>typed-map</module>
-	<module>jersey</module>
+        <module>jersey</module>
     </modules>
 
 </project>

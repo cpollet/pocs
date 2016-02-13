@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.cpollet.pocs</groupId>
+    <groupId>net.cpollet.pocs.rest-query</groupId>
     <artifactId>rest-query</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 

@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.cpollet.pocs.read</groupId>
-    <artifactId>service</artifactId>
+    <groupId>net.cpollet.pocs.read-api</groupId>
+    <artifactId>read-api.service</artifactId>
     <version>1.0.0-SNASHOT</version>
 
     <dependencies>

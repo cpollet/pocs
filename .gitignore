@@ -5,3 +5,4 @@ read-api/api/target
 read-api/client/target
 read-api/helper/target
 read-api/service/target
+jersey/server/target
