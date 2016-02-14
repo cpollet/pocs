@@ -10,6 +10,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Map;
 
 /**
  * @author Christophe Pollet
@@ -24,17 +25,22 @@ public class RestClientImpl implements RestClient {
     }
 
     @Override
-    public Response get(String url) {
+    public Response get(String url, Map<String, Object> pathParams, Map<String, Object> queryParams) {
         Client client = ClientBuilder.newClient();
 
         client.register(JsonHandler.class);
 
-        WebTarget webTarget = client.target(host);
-        WebTarget resourceWebTarget = webTarget.path(url);
+        WebTarget webTarget = client.target(host)
+                .path(url)
+                .resolveTemplates(pathParams);
 
-        LOGGER.info("URL is " + resourceWebTarget.getUri());
+        for (Map.Entry<String, Object> queryParam : queryParams.entrySet()) {
+            webTarget = webTarget.queryParam(queryParam.getKey(), queryParam.getValue());
+        }
 
-        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON);
+        LOGGER.info("URL is " + webTarget.getUri());
+
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
         return invocationBuilder.get();
     }
