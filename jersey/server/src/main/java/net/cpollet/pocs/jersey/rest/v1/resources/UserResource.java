@@ -1,7 +1,7 @@
 package net.cpollet.pocs.jersey.rest.v1.resources;
 
 import net.cpollet.pocs.jersey.rest.v1.api.User;
-import net.cpollet.pocs.jersey.rest.v1.api.exceptions.RestException;
+import net.cpollet.pocs.jersey.rest.v1.exceptions.RestException;
 import net.cpollet.pocs.jersey.services.api.UserNotFoundException;
 import net.cpollet.pocs.jersey.services.api.UserService;
 import org.dozer.Mapper;

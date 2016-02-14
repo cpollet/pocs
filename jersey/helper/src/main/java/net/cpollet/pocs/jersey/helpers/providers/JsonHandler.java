@@ -1,4 +1,4 @@
-package net.cpollet.pocs.jersey.rest.providers;
+package net.cpollet.pocs.jersey.helpers.providers;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;

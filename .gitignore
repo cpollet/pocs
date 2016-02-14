@@ -6,3 +6,6 @@ read-api/client/target
 read-api/helper/target
 read-api/service/target
 jersey/server/target
+jersey/client/target
+jersey/api/target
+jersey/helper/target

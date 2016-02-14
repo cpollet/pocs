@@ -31,4 +31,13 @@ public class User {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", admin=" + admin +
+                '}';
+    }
 }

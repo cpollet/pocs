@@ -1,4 +1,4 @@
-package net.cpollet.pocs.jersey.rest.v1.api.exceptions;
+package net.cpollet.pocs.jersey.rest.v1.exceptions;
 
 import net.cpollet.pocs.jersey.rest.v1.api.ErrorResponse;
 
