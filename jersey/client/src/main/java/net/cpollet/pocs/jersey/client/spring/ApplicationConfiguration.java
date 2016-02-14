@@ -1,6 +1,8 @@
 package net.cpollet.pocs.jersey.client.spring;
 
+import net.cpollet.pocs.jersey.client.UserExceptionTranslator;
 import net.cpollet.pocs.jersey.client.UserResource;
+import net.cpollet.pocs.jersey.client.helper.ExceptionTranslator;
 import net.cpollet.pocs.jersey.client.helper.RestClient;
 import net.cpollet.pocs.jersey.client.helper.RestClientImpl;
 import net.cpollet.pocs.jersey.client.helper.WebProxy;
@@ -17,19 +19,25 @@ import java.lang.reflect.Proxy;
 @Configuration
 public class ApplicationConfiguration {
     @Bean
+    public UserService userService() {
+        return new UserServiceImpl(userResource());
+    }
+
+    @Bean
+    public UserResource userResource() {
+        return (UserResource) Proxy.newProxyInstance(
+                UserResource.class.getClassLoader(),
+                new Class[]{UserResource.class},
+                new WebProxy("api/v1", restClient(), userExceptionTranslator()));
+    }
+
+    @Bean
     public RestClient restClient() {
         return new RestClientImpl("http://localhost:8080");
     }
 
     @Bean
-    public UserService userService() {
-        return new UserServiceImpl(userResource());
-    }
-
-    @Bean public UserResource userResource() {
-        return (UserResource) Proxy.newProxyInstance(
-                UserResource.class.getClassLoader(),
-                new Class[]{UserResource.class},
-                new WebProxy("api/v1", restClient()));
+    public ExceptionTranslator userExceptionTranslator() {
+        return new UserExceptionTranslator();
     }
 }

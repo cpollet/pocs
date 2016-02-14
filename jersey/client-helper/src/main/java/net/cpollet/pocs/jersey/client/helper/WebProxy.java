@@ -1,8 +1,6 @@
 package net.cpollet.pocs.jersey.client.helper;
 
-import net.cpollet.pocs.jersey.client.service.exceptions.UserNotFoundException;
 import net.cpollet.pocs.jersey.rest.v1.api.ErrorResponse;
-import net.cpollet.pocs.jersey.rest.v1.api.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,11 +16,13 @@ public class WebProxy implements InvocationHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebProxy.class);
     private final String baseUrl;
     private final RestClient restClient;
+    private final ExceptionTranslator exceptionTranslator;
 
 
-    public WebProxy(String baseUrl, RestClient restClient) {
+    public WebProxy(String baseUrl, RestClient restClient, ExceptionTranslator exceptionTranslator) {
         this.baseUrl = baseUrl;
         this.restClient = restClient;
+        this.exceptionTranslator = exceptionTranslator;
     }
 
     @Override
@@ -41,19 +41,10 @@ public class WebProxy implements InvocationHandler {
                 return response.readEntity(method.getReturnType());
             case 4:
             case 5:
-                translateException(response.readEntity(ErrorResponse.class));
+                exceptionTranslator.translateException(response.readEntity(ErrorResponse.class));
                 break;
         }
 
         throw new IllegalStateException("HTTP status [] not supported" + response.getStatus());
-    }
-
-    private void translateException(ErrorResponse errorResponse) throws UserNotFoundException {
-        switch (errorResponse.getCode()) {
-            case 1000:
-                throw new UserNotFoundException(errorResponse.getMessage());
-            default:
-                throw new RuntimeException("ERR-" + errorResponse.getCode() + " - " + errorResponse.getMessage());
-        }
     }
 }

@@ -1,7 +1,5 @@
 package net.cpollet.pocs.jersey.client;
 
-import net.cpollet.pocs.jersey.client.helper.RestClient;
-import net.cpollet.pocs.jersey.client.helper.RestClientImpl;
 import net.cpollet.pocs.jersey.client.service.UserService;
 import net.cpollet.pocs.jersey.client.service.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
