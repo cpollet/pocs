@@ -1,6 +1,6 @@
 package net.cpollet.pocs.jersey.rest.v1.config;
 
-import net.cpollet.pocs.jersey.helpers.providers.JsonHandler;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.ws.rs.ApplicationPath;
@@ -9,9 +9,9 @@ import javax.ws.rs.ApplicationPath;
  * @author Christophe Pollet
  */
 @ApplicationPath("/api/v1")
-public class RestApplication extends ResourceConfig {
-    public RestApplication() {
+public class JerseyConfiguration extends ResourceConfig {
+    public JerseyConfiguration() {
         packages("net.cpollet.pocs.jersey.rest.v1");
-        register(JsonHandler.class);
+        register(JacksonFeature.class);
     }
 }
