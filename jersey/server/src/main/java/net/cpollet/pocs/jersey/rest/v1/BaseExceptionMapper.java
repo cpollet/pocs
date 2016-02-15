@@ -13,7 +13,6 @@ import java.util.List;
 public abstract class BaseExceptionMapper<T extends Throwable> implements ExceptionMapper<T> {
     private static final List<MediaType> supportedMediaTypes = new ArrayList<MediaType>() {{
         add(MediaType.APPLICATION_JSON_TYPE);
-        add(MediaType.APPLICATION_XML_TYPE);
     }};
 
     @Context

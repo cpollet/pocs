@@ -7,6 +7,9 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Christophe Pollet
  */
@@ -19,6 +22,12 @@ public class ApplicationConfiguration {
 
     @Bean
     public Mapper mapper() {
-        return new DozerBeanMapper();
+        List<String> mappingFiles = new ArrayList();
+        mappingFiles.add("dozerJdk8Converters.xml");
+
+        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+        dozerBeanMapper.setMappingFiles(mappingFiles);
+
+        return dozerBeanMapper;
     }
 }

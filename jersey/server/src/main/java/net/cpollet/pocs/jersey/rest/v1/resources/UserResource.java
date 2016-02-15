@@ -34,9 +34,9 @@ public class UserResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("{" + USERNAME + "}")
-    public User getUserInfo(@PathParam(USERNAME) String username) {
+    public Response getUserInfo(@PathParam(USERNAME) String username) {
         LOGGER.info("In " + this);
 
         if (username.equals("500")) {
@@ -44,7 +44,7 @@ public class UserResource {
         }
 
         try {
-            return mapper.map(userService.getUser(username), User.class);
+            return Response.ok(mapper.map(userService.getUser(username), User.class)).build();
         }
         catch (UserNotFoundException e) {
             throw new RestException(e, RestException.ERROR_USER_NOT_FOUND, Response.Status.NOT_FOUND);

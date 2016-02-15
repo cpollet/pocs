@@ -1,5 +1,6 @@
 package net.cpollet.pocs.jersey.rest.v1.config;
 
+import net.cpollet.pocs.jersey.rest.v1.LocalDateProvider;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
