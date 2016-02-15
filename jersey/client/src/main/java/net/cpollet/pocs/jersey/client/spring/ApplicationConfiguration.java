@@ -33,7 +33,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public RestClient restClient() {
-        return new RestClientImpl("http://localhost:8080");
+        return new RestClientImpl("http://localhost:8080/jersey-server");
     }
 
     @Bean
