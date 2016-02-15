@@ -1,8 +1,11 @@
 package net.cpollet.pocs.jersey.rest.v1.api;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author Christophe Pollet
  */
+@XmlRootElement
 public class User {
     private String username;
     private String email;

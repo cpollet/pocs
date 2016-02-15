@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Root resource (exposed at "users" path)
@@ -33,16 +34,20 @@ public class UserResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("{" + USERNAME + "}")
     public User getUserInfo(@PathParam(USERNAME) String username) {
         LOGGER.info("In " + this);
+
+        if (username.equals("500")) {
+            throw new RuntimeException();
+        }
 
         try {
             return mapper.map(userService.getUser(username), User.class);
         }
         catch (UserNotFoundException e) {
-            throw new RestException(e.getMessage(), RestException.ERROR_USER_NOT_FOUND);
+            throw new RestException(e, RestException.ERROR_USER_NOT_FOUND, Response.Status.NOT_FOUND);
         }
     }
 }

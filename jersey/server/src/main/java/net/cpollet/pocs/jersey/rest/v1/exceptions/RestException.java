@@ -1,9 +1,6 @@
 package net.cpollet.pocs.jersey.rest.v1.exceptions;
 
-import net.cpollet.pocs.jersey.rest.v1.api.ErrorResponse;
-
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -12,10 +9,14 @@ import javax.ws.rs.core.Response;
 public class RestException extends WebApplicationException {
     public static int ERROR_USER_NOT_FOUND = 1000;
 
-    public RestException(String message, int code) {
-        super(Response.status(Response.Status.NOT_FOUND).
-                entity(new ErrorResponse(message, code))
-                .type(MediaType.APPLICATION_JSON)
-                .build());
+    private final int code;
+
+    public RestException(Exception cause, int code, Response.Status httpStatus) {
+        super(cause.getMessage(), cause, httpStatus);
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
     }
 }
