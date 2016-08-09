@@ -4,7 +4,6 @@ import net.cpollet.pocs.oop.collections.Enumeration;
 import net.cpollet.pocs.oop.collections.IntegerEnumeration;
 import net.cpollet.pocs.oop.control.LessThan;
 import net.cpollet.pocs.oop.control.branching.If;
-import net.cpollet.pocs.oop.control.branching.IfAlgorithm;
 import net.cpollet.pocs.oop.control.looping.For;
 import net.cpollet.pocs.oop.control.looping.ForAlgorithm;
 import net.cpollet.pocs.oop.values.IntegerNumber;
@@ -29,7 +28,7 @@ public class FibonacciList implements Value<List<Integer>> {
     }
 
     public FibonacciList(int first, int second, int length) {
-        new If<>(new SimpleIntegerNumber(length), new LessThan<>(2), new IfAlgorithm<Object>() { // can be replaced with a lambda
+        new If<>(new SimpleIntegerNumber(length), new LessThan<>(2), new Value<Object>() { // can be replaced with a lambda
             @Override
             public Object value() {
                 throw new IllegalArgumentException("length must be at least 20, was " + length);

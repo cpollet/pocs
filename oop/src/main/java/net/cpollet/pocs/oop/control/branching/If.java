@@ -9,11 +9,11 @@ import net.cpollet.pocs.oop.values.Value;
 public class If<T, R> implements Value<R> {
     private final Value<T> value;
     private final Predicate<T> predicate;
-    private final IfAlgorithm<R> resultIfTrue;
-    private final IfAlgorithm<R> resultIfFalse;
+    private final Value<R> resultIfTrue;
+    private final Value<R> resultIfFalse;
 
-    public If(Value<T> value, Predicate<T> predicate, IfAlgorithm<R> resultIfTrue) {
-        this(value, predicate, resultIfTrue, new IfAlgorithm<R>() {
+    public If(Value<T> value, Predicate<T> predicate, Value<R> resultIfTrue) {
+        this(value, predicate, resultIfTrue, new Value<R>() { // can be replaced with a lambda
             @Override
             public R value() {
                 return null;
@@ -21,7 +21,7 @@ public class If<T, R> implements Value<R> {
         });
     }
 
-    public If(Value<T> value, Predicate<T> predicate, IfAlgorithm<R> resultIfTrue, IfAlgorithm<R> resultIfFalse) {
+    public If(Value<T> value, Predicate<T> predicate, Value<R> resultIfTrue, Value<R> resultIfFalse) {
         this.value = value;
         this.predicate = predicate;
         this.resultIfTrue = resultIfTrue;

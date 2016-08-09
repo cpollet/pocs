@@ -1,6 +1,5 @@
 package net.cpollet.pocs.oop.values;
 
-import net.cpollet.pocs.oop.values.Value;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -8,8 +7,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public abstract class IntegerNumber extends Number implements Value<Integer> {
     @Override
-    public Integer value() {
-        return intValue();
+    public int intValue() {
+        return value();
     }
 
     @Override

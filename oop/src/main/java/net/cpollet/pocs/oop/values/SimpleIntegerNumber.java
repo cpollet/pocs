@@ -11,7 +11,7 @@ public class SimpleIntegerNumber extends IntegerNumber {
     }
 
     @Override
-    public int intValue() {
+    public Integer value() {
         return value;
     }
 }

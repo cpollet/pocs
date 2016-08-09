@@ -2,7 +2,6 @@ package net.cpollet.pocs.oop.collections;
 
 import net.cpollet.pocs.oop.control.Predicate;
 import net.cpollet.pocs.oop.control.branching.If;
-import net.cpollet.pocs.oop.control.branching.IfAlgorithm;
 import net.cpollet.pocs.oop.control.looping.For;
 import net.cpollet.pocs.oop.control.looping.ForAlgorithm;
 import net.cpollet.pocs.oop.values.SimpleValue;
@@ -39,14 +38,14 @@ public class FilteredList<T> implements Value<List<T>> {
                     }
                 };
 
-                IfAlgorithm<List<T>> valueIfTrue = new IfAlgorithm<List<T>>() {
+                Value<List<T>> valueIfTrue = new Value<List<T>>() {
                     @Override
                     public List<T> value() {
                         return initialValue;
                     }
                 };
 
-                IfAlgorithm<List<T>> valueIfFalse = new IfAlgorithm<List<T>>() {
+                Value<List<T>> valueIfFalse = new Value<List<T>>() {
                     @Override
                     public List<T> value() {
                         List<T> result = new ArrayList<>(initialValue);
