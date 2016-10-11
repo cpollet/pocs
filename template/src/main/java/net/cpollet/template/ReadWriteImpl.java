@@ -74,7 +74,9 @@ public class ReadWriteImpl<T> implements ReadWrite<T> {
             throw new Exception(exceptions.toString());
         }
 
-        return business.apply(new Object());
+        Object o = new Object();
+
+        return business.apply(o);
     }
 
     private boolean hasReadAccess(Object attribute) {
