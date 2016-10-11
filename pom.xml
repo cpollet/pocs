@@ -13,6 +13,7 @@
         <module>rest-query</module>
         <module>read-api</module>
         <module>jersey</module>
+        <module>template</module>
         <module>oop</module>
     </modules>
 
