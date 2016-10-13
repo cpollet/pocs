@@ -9,5 +9,7 @@ import java.util.Map;
 public interface ReadWrite<T> {
     Map<T, Map<String, String>> read(List<T> ids, List<String> attributes) throws Exception;
 
+    Map<T, Map<String, String>> read2(List<T> ids, List<String> attributeNames) throws Exception;
+
     Map<T, Map<String, String>> write(List<T> ids, Map<String, String> attributeValues) throws Exception;
 }

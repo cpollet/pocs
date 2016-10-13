@@ -24,6 +24,26 @@ public class ReadWriteImpl<T> implements ReadWrite<T> {
     }
 
     @Override
+    public Map<T, Map<String, String>> read2(List<T> ids, List<String> attributeNames) throws Exception {
+        return access(ids, attributeNames, new WorkUnit<List<String>, T>() {
+            @Override
+            public Collection<String> attributeNames(List<String> attributes) {
+                return attributes;
+            }
+
+            @Override
+            public Object additionalChecks(Object object) {
+                return null;
+            }
+
+            @Override
+            public Map<T, Map<String, String>> business(List<T> ids, List<String> attributes) {
+                return null;
+            }
+        });
+    }
+
+    @Override
     public Map<T, Map<String, String>> write(List<T> ids, Map<String, String> attributeValues) throws Exception {
         return access(
                 ids,
@@ -34,9 +54,15 @@ public class ReadWriteImpl<T> implements ReadWrite<T> {
         );
     }
 
-    private <U> Map<T, Map<String, String>> access(List<T> ids,
-                                                   U attributes,
-                                                   Function<U, Collection<String>> attributeNameProvider,
+    private <A> Map<T, Map<String, String>> access(List<T> ids,
+                                                   A attributes,
+                                                   WorkUnit<A, T> work) {
+        return work.business(ids, attributes);
+    }
+
+    private <A> Map<T, Map<String, String>> access(List<T> ids,
+                                                   A attributes,
+                                                   Function<A, Collection<String>> attributeNameProvider,
                                                    List<Function<Object, Object>> additionalChecks, // Context, Exception
                                                    Function<Object, Map<T, Map<String, String>>> business) // ??
             throws Exception {
@@ -95,6 +121,14 @@ public class ReadWriteImpl<T> implements ReadWrite<T> {
         if (ids.size() > 10) {
             throw new IllegalArgumentException("Too many IDs: " + ids.size());
         }
+    }
+
+    private interface WorkUnit<A, T> {
+        Collection<String> attributeNames(A attributes);
+
+        Object additionalChecks(Object object);
+
+        Map<T, Map<String, String>> business(List<T> ids, A attributes);
     }
 
     private class Read implements Function<Object, Map<T, Map<String, String>>> {
