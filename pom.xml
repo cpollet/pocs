@@ -15,6 +15,7 @@
         <module>jersey</module>
         <module>template</module>
         <module>oop</module>
+	<module>algorithm-template</module>
     </modules>
 
 </project>
