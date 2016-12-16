@@ -8,3 +8,4 @@ $ java -jar target/rabbitmq.jar consumer 1
 $ java -jar target/rabbitmq.jar consumer 2
 $ java -jar target/rabbitmq.jar consumer 2
 ```
+Connect to localhost:8080 with user guest:guest for admin console
