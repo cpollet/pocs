@@ -5,12 +5,14 @@ package net.cpollet.rabbitmq;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        switch (args[0]){
+        final String exchangeName = "myExchange";
+
+        switch (args[0]) {
             case "producer":
-                new Producer("broadcast").run();
+                new MyProducer(exchangeName).run();
                 break;
             case "consumer":
-                new Consumer("broadcast", args[1]).run();
+                new MyConsumer(exchangeName, args[1]).run();
                 break;
         }
     }

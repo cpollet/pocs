@@ -12,15 +12,15 @@ import java.io.IOException;
 /**
  * Created by cpollet on 09.12.16.
  */
-class Producer implements Runnable {
-    private final static Logger LOGGER = LogManager.getLogger(Producer.class);
+class MyProducer implements Runnable {
+    private final static Logger LOGGER = LogManager.getLogger(MyProducer.class);
 
     private final Channel channel;
     private final String exchangeName;
 
     private int messageId;
 
-    Producer(String exchangeName) throws Exception {
+    MyProducer(String exchangeName) throws Exception {
         this.exchangeName = exchangeName;
         this.messageId = 0;
 
