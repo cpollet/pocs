@@ -20,8 +20,8 @@ class MyProducer implements Runnable {
 
     private int messageId;
 
-    MyProducer(String exchangeName) throws Exception {
-        this.exchangeName = exchangeName;
+    MyProducer(Configuration configuration) throws Exception {
+        this.exchangeName = configuration.getExchangeName();
         this.messageId = 0;
 
         ConnectionFactory factory = new ConnectionFactory();

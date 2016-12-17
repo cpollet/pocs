@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by cpollet on 09.12.16.
@@ -24,30 +25,29 @@ class MyConsumer implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger(MyConsumer.class);
 
     private final Channel channel;
-    private final String queueName;
     private final Set<Object> alreadyRejected;
+    private final Configuration configuration;
 
-    MyConsumer(String exchangeName, String name) throws Exception {
+    public MyConsumer(Configuration configuration) throws IOException, TimeoutException {
+        this.configuration = configuration;
         alreadyRejected = new HashSet<>();
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
 
-        String deadExchangeName = exchangeName + "_dead-" + name;
-
         channel = connection.createChannel();
-        channel.exchangeDeclare(exchangeName, BuiltinExchangeType.FANOUT);
-        channel.exchangeDeclare(deadExchangeName, BuiltinExchangeType.DIRECT);
+        channel.exchangeDeclare(configuration.getExchangeName(), BuiltinExchangeType.FANOUT);
+        channel.exchangeDeclare(configuration.getDeadExchangeName(), BuiltinExchangeType.DIRECT);
 
         Map<String, Object> args = new HashMap<>();
-        args.put("x-dead-letter-exchange", deadExchangeName);
+        args.put("x-dead-letter-exchange", configuration.getDeadExchangeName());
 
-        queueName = channel.queueDeclare("queue-" + name, false, false, false, args).getQueue();
-        channel.queueBind(queueName, exchangeName, "");
+        channel.queueDeclare(configuration.getQueueName(), false, false, false, args);
+        channel.queueBind(configuration.getQueueName(), configuration.getExchangeName(), "");
 
-        String deadQueueName = channel.queueDeclare("deadQueue-" + name, false, false, false, null).getQueue();
-        channel.queueBind(deadQueueName, deadExchangeName, "");
+        channel.queueDeclare(configuration.getDeadQueueName(), false, false, false, null);
+        channel.queueBind(configuration.getDeadQueueName(), configuration.getDeadExchangeName(), "");
     }
 
     @Override
@@ -88,7 +88,7 @@ class MyConsumer implements Runnable {
         };
 
         try {
-            channel.basicConsume(queueName, false, consumer);
+            channel.basicConsume(configuration.getQueueName(), false, consumer);
         } catch (IOException e) {
             LOGGER.error(e);
         }
