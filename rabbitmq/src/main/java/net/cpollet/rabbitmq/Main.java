@@ -6,25 +6,20 @@ package net.cpollet.rabbitmq;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        final String exchangeName = "myExchange";
+        final String exchangeName = "exchange";
 
         switch (args[0]) {
             case "producer":
-                new MyProducer(new Configuration(exchangeName)).run();
+                new MyProducer(consumerConfiguration(exchangeName, null)).run();
                 break;
             case "consumer":
                 new MyConsumer(consumerConfiguration(exchangeName, args[1])).run();
                 break;
-            case "retry":
-
-                new MyRetry(consumerConfiguration(exchangeName, args[1])).run();
         }
     }
 
     private static Configuration consumerConfiguration(String exchange, String queue) {
         String queueName = exchange + "." + queue;
-        String deadExchangeName = exchange + "_dead";
-        String deadQueueName = deadExchangeName + "." + queue;
-        return new Configuration(exchange, queueName, deadExchangeName, deadQueueName);
+        return new Configuration(exchange, queueName);
     }
 }

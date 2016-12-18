@@ -13,9 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -25,56 +22,68 @@ class MyConsumer implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger(MyConsumer.class);
 
     private final Channel channel;
-    private final Set<Object> alreadyRejected;
     private final Configuration configuration;
+    private final String retryExchange;
 
     public MyConsumer(Configuration configuration) throws IOException, TimeoutException {
         this.configuration = configuration;
-        alreadyRejected = new HashSet<>();
+        this.retryExchange = configuration.getQueueName() + ".retry";
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
 
         channel = connection.createChannel();
-        channel.exchangeDeclare(configuration.getExchangeName(), BuiltinExchangeType.FANOUT);
-        channel.exchangeDeclare(configuration.getDeadExchangeName(), BuiltinExchangeType.DIRECT);
 
-        Map<String, Object> args = new HashMap<>();
-        args.put("x-dead-letter-exchange", configuration.getDeadExchangeName());
+        channel.exchangeDeclare(retryExchange, BuiltinExchangeType.FANOUT);
 
-        channel.queueDeclare(configuration.getQueueName(), false, false, false, args);
+        channel.queueDeclare(configuration.getQueueName(), false, false, false, null);
         channel.queueBind(configuration.getQueueName(), configuration.getExchangeName(), "");
-
-        channel.queueDeclare(configuration.getDeadQueueName(), false, false, false, null);
-        channel.queueBind(configuration.getDeadQueueName(), configuration.getDeadExchangeName(), "");
+        channel.queueBind(configuration.getQueueName(), retryExchange, "");
     }
 
     @Override
     public void run() {
         Consumer consumer = new DefaultConsumer(channel) {
+            private static final String RETRY_COUNT_HEADER = "x-retry-count";
+
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
+                Integer retryCount = retryCount(properties);
 
-                if (!acceptMessage(message)) {
-                    LOGGER.info("reject {}", message);
-                    alreadyRejected.add(message);
-                    channel.basicReject(envelope.getDeliveryTag(), false);
-                } else {
-                    LOGGER.info("ack    {}", message);
-                    channel.basicAck(envelope.getDeliveryTag(), false);
+                if (acceptMessage(message)) {
+                    LOGGER.info("ack    {} ({})", message, retryCount);
+                    return;
                 }
+
+                LOGGER.info("reject {} ({})", message, retryCount);
+
+                if (retryCount > 2) {
+                    LOGGER.info("drop   {} ({})", message, retryCount);
+                    return;
+                }
+
+                retryCount++;
+                Long timeout = (long) Math.pow(2, retryCount) * 1000L;
+
+                HashMap<String, Object> headers = new HashMap<>();
+                headers.put(RETRY_COUNT_HEADER, retryCount);
+
+                AMQP.BasicProperties.Builder propertiesBuilder = new AMQP.BasicProperties().builder();
+                propertiesBuilder.headers(headers);
+
+                channel.basicPublish("", queue(timeout), propertiesBuilder.build(), body);
             }
 
             private boolean acceptMessage(String message) {
-                if (value(message) % 5 != 0) {
-                    return true;
-                } else if (!alreadyRejected.contains(message)) {
+                if (value(message) < 0) {
                     return false;
+                } else if (value(message) % 5 != 0) {
+                    return true;
                 }
 
-                return Math.random() > 0.5D;
+                return Math.random() > 0.8D;
             }
 
             private Long value(String message) {
@@ -85,12 +94,31 @@ class MyConsumer implements Runnable {
                     return 0L;
                 }
             }
+
+            private Integer retryCount(AMQP.BasicProperties properties) {
+                if (properties.getHeaders() == null || !properties.getHeaders().containsKey(RETRY_COUNT_HEADER)) {
+                    return 0;
+                }
+
+                return (Integer) properties.getHeaders().get(RETRY_COUNT_HEADER);
+            }
+
+            private String queue(long timeout) throws IOException {
+                String queueName = configuration.getQueueName() + ".retry." + timeout;
+
+                HashMap<String, Object> args = new HashMap<>();
+                args.put("x-message-ttl", timeout);
+                args.put("x-dead-letter-exchange", retryExchange);
+                channel.queueDeclare(queueName, false, false, false, args);
+
+                return queueName;
+            }
         };
 
         try {
-            channel.basicConsume(configuration.getQueueName(), false, consumer);
-        } catch (IOException e) {
-            LOGGER.error(e);
+            channel.basicConsume(configuration.getQueueName(), true, consumer);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
