@@ -9,3 +9,8 @@ $ java -jar target/rabbitmq.jar consumer 2
 $ java -jar target/rabbitmq.jar consumer 2
 ```
 Connect to localhost:8080 with user guest:guest for admin console
+
+To send message from perl:
+```
+docker run --link some-rabbit:rabbitmq -it --rm --name rabitmq-perl -v `pwd`:/usr/src/rabbitmq -w /usr/src/rabbitmq cpollet/perl-rabbitmq perl generate.pl
+```
