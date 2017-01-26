@@ -1,0 +1,15 @@
+influxdb:
+    image: influxdb
+    volumes:
+        - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    ports:
+        - "8083:8083"
+        - "8086:8086"
+    command: -config /etc/influxdb/influxdb.conf
+
+grafana:
+    image: grafana/grafana
+    links:
+        - influxdb:influxdb
+    ports:
+        - "3000:3000"
