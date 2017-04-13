@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class BlockWrapper extends React.Component {
+class FieldWrapper extends React.Component {
     componentDidMount() {
         this.props.onRender({
             attribute: this.props.attributeName
@@ -16,10 +16,10 @@ class BlockWrapper extends React.Component {
     }
 }
 
-BlockWrapper.propTypes = {
+FieldWrapper.propTypes = {
     attributeName: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     onRender: PropTypes.func.isRequired
 };
 
-export default BlockWrapper;
+export default FieldWrapper;

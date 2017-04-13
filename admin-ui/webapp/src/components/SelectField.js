@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import renderIf from '../renderif';
 
 class SelectField extends React.Component {
-
     render() {
         return (
             <div>
-                <label htmlFor={this.props.attributeName}>{this.props.label}</label>:&nbsp;
-                <select id={this.props.attributeName}>
-                    {this.props.options.map(o => (
-                        <option value={o.value} key={this.props.attributeName + ':' + o.value}>{o.label}</option>
-                    ))}
-                </select>
+                <label>{this.props.label}:&nbsp;
+                    {renderIf(this.props.options.length > 0,
+                        <select name={this.props.attributeName}>
+                            {this.props.options.map(o => (
+                                <option value={o.value}
+                                        key={this.props.attributeName + ':' + o.value}>{o.label}</option>
+                            ))}
+                        </select>
+                    )}
+                </label>
             </div>
         );
     }

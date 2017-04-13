@@ -32,5 +32,25 @@
         "label": "Divorced"
       }
     ]
+  },
+  "socialNet": {
+    "label":"Social networks",
+    "values": [
+      {
+        "value":"FB",
+        "label":"Facebook"
+      },
+      {
+        "value":"TWITTER",
+        "label":"Twitter"
+      },
+      {
+        "value":"LINKEDIN",
+        "label":"LinkedIn"
+      }
+    ]
+  },
+  "username": {
+    "label":"Username"
   }
 }

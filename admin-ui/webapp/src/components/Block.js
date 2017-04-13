@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
-import BlockWrapper from './BlockWrapper';
+import FieldWrapper from './FieldWrapper';
 
 class Block extends React.Component {
     constructor(props, context) {
@@ -79,21 +79,28 @@ class Block extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>mounted children: {this.state.mountedChildren}</p>
+            <div style={{
+                border: '1px solid gray',
+                padding: '1em',
+                margin: '1em'
+            }}>
                 {React.Children.map(this.props.children, child => {
-                    let childWithProps = child;
+                    let childWithProps;
                     if (this.state.fetched === true) {
                         childWithProps = React.cloneElement(child, {
                             label: this.state.data[child.props.attributeName].label,
                             options: this.state.data[child.props.attributeName].values
                         });
+                    } else {
+                        childWithProps = React.cloneElement(child, {
+                            label: child.props.attributeName,
+                        });
                     }
                     return (
-                        <BlockWrapper attributeName={child.props.attributeName}
+                        <FieldWrapper attributeName={child.props.attributeName}
                                       onRender={this.onChildNodeDidMount.bind(this)}>
                             {childWithProps}
-                        </BlockWrapper>
+                        </FieldWrapper>
                     );
                 })}
             </div>

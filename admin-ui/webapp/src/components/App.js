@@ -1,6 +1,9 @@
 import React from 'react';
-import SelectField from './SelectField';
 import Block from './Block';
+import SelectField from './SelectField';
+import RadioField from './RadioField';
+import CheckboxField from './CheckboxField';
+import InputField from './InputField';
 
 class App extends React.Component {
     componentDidMount() {
@@ -10,10 +13,16 @@ class App extends React.Component {
 
     render() {
         return (
-            <Block>
-                <SelectField attributeName="gender"/>
-                <SelectField attributeName="maritalStatus"/>
-            </Block>
+            <div>
+                <Block>
+                    <InputField attributeName="username"/>
+                </Block>
+                <Block>
+                    <RadioField attributeName="gender"/>
+                    <SelectField attributeName="maritalStatus"/>
+                    <CheckboxField attributeName="socialNet"/>
+                </Block>
+            </div>
         );
     }
 }

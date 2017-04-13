@@ -5,6 +5,11 @@
   },
   "response": {
     "status": 200,
-    "bodyFileName": "block1.en.json"
+    "bodyFileName": "block1.en.json",
+    "delayDistribution": {
+      "type": "uniform",
+      "lower": 0,
+      "upper": 2000
+    }
   }
 }
