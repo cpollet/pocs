@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/attributes/en/block1"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "block1.en.json"
+  }
+}

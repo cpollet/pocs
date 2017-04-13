@@ -11,3 +11,4 @@ jersey/api/target
 jersey/helper/target
 jersey/client-helper/target/classes/net/cpollet/pocs/jersey/client/helper
 jersey/client-helper/target
+admin-ui/webapp/node_modules
