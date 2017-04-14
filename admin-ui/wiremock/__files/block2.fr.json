@@ -1,0 +1,53 @@
+{
+  "gender": {
+    "label": "Sexe",
+    "values": [
+      {
+        "value": "MALE",
+        "label": "Homme"
+      },
+      {
+        "value": "FEMALE",
+        "label": "Femme"
+      }
+    ]
+  },
+  "maritalStatus": {
+    "label": "Status marital",
+    "values": [
+      {
+        "value": "SINGLE",
+        "label": "Célibataire"
+      },
+      {
+        "value": "MARRIED",
+        "label": "Marrié"
+      },
+      {
+        "value": "WIDOWED",
+        "label": "Veuf"
+      },
+      {
+        "value": "DIVORCED",
+        "label": "Divorcé"
+      }
+    ]
+  },
+  "socialNet": {
+    "label":"Réseaux sociaux",
+    "values": [
+      {
+        "value":"FB",
+        "label":"Facebook"
+      },
+      {
+        "value":"TWITTER",
+        "label":"Twitter"
+      },
+      {
+        "value":"LINKEDIN",
+        "label":"LinkedIn"
+      }
+    ]
+  }
+}

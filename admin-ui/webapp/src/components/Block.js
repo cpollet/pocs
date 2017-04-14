@@ -24,7 +24,7 @@ class Block extends React.Component {
                 return currentState;
             }
 
-            fetch('/api/attributes/' + window.lang + '/block1')
+            fetch('/api/attributes/' + window.lang + '?attributes=' + this.state.attributes.sort().join(','))
                 .then(response => {
                     return response.json();
                 })
@@ -60,8 +60,8 @@ class Block extends React.Component {
 
     // Nasty hack!
     shouldComponentUpdate() {
-        if (window.forceUpdate) {
-            window.forceUpdate = false;
+        if (window['forceUpdate_' + this.props.name]) {
+            window['forceUpdate_' + this.props.name] = false;
             this.setState(
                 function () {
                     return {
@@ -89,7 +89,8 @@ class Block extends React.Component {
                     if (this.state.fetched === true) {
                         childWithProps = React.cloneElement(child, {
                             label: this.state.data[child.props.attributeName].label,
-                            options: this.state.data[child.props.attributeName].values
+                            options: this.state.data[child.props.attributeName].values,
+                            ready: true
                         });
                     } else {
                         childWithProps = React.cloneElement(child, {
@@ -110,6 +111,7 @@ class Block extends React.Component {
 
 Block.propTypes = {
     children: PropTypes.node,
+    name: PropTypes.string
 };
 
 export default Block;

@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 
 // Nasty hack!
-window.forceUpdate = false;
+window.forceUpdate_block1 = false;
+window.forceUpdate_block2 = true;
 window.lang = 'en';
 window.switchLanguage = function () {
     if (window.lang == 'en') {
@@ -12,9 +13,9 @@ window.switchLanguage = function () {
     } else {
         window.lang = 'en';
     }
-    window.forceUpdate = true;
+    window.forceUpdate_block1 = true;
+    window.forceUpdate_block2 = true;
     window.app.forceUpdate();
-    return true;
 };
 
 document.addEventListener('DOMContentLoaded', function () {

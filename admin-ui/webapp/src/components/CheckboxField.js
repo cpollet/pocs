@@ -24,12 +24,14 @@ CheckboxField.propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired
-    }))
+    })),
+    ready: PropTypes.bool.isRequired
 };
 
 CheckboxField.defaultProps = {
     label: '(label)',
     options: [],
+    ready: false
 };
 
 export default CheckboxField;

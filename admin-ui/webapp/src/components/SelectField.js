@@ -7,7 +7,7 @@ class SelectField extends React.Component {
         return (
             <div>
                 <label>{this.props.label}:&nbsp;
-                    {renderIf(this.props.options.length > 0,
+                    {renderIf(this.props.ready,
                         <select name={this.props.attributeName}>
                             {this.props.options.map(o => (
                                 <option value={o.value}
@@ -27,12 +27,14 @@ SelectField.propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired
-    }))
+    })),
+    ready: PropTypes.bool.isRequired
 };
 
 SelectField.defaultProps = {
     label: '(label)',
     options: [],
+    ready: false
 };
 
 export default SelectField;

@@ -14,10 +14,10 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Block>
+                <Block name="block1">
                     <InputField attributeName="username"/>
                 </Block>
-                <Block>
+                <Block name="block2">
                     <RadioField attributeName="gender"/>
                     <SelectField attributeName="maritalStatus"/>
                     <CheckboxField attributeName="socialNet"/>

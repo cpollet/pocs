@@ -24,12 +24,14 @@ RadioField.propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired
-    }))
+    })),
+    ready: PropTypes.bool.isRequired
 };
 
 RadioField.defaultProps = {
     label: '(label)',
     options: [],
+    ready: false
 };
 
 export default RadioField;

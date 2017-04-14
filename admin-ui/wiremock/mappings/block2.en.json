@@ -1,11 +1,11 @@
 {
   "request": {
     "method": "GET",
-    "url": "/attributes/fr?attributes=username"
+    "url": "/attributes/en?attributes=gender,maritalStatus,socialNet"
   },
   "response": {
     "status": 200,
-    "bodyFileName": "block1.fr.json",
+    "bodyFileName": "block2.en.json",
     "delayDistribution": {
       "type": "uniform",
       "lower": 0,

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/attributes/en/block1"
+    "url": "/attributes/en?attributes=username"
   },
   "response": {
     "status": 200,

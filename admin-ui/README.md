@@ -7,5 +7,3 @@ $ npm install && npm start
 ```
 
 Visit http://localhost:3000
-
-You can change the language by calling switchLanguage() from the browser console.
