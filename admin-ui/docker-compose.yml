@@ -1,0 +1,10 @@
+version: '2'
+services:
+  webapp:
+    image: "cpollet/admin-ui-webapp"
+    ports:
+      - "3000:3000"
+  webservice:
+    image: "rodolpheche/wiremock"
+    volumes:
+      - "./wiremock:/home/wiremock"

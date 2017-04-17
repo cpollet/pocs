@@ -6,4 +6,10 @@ $ cd webapp
 $ npm install && npm start
 ```
 
+Alternatively:
+
+```
+$ docker-compose up
+```
+
 Visit http://localhost:3000
