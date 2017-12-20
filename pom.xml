@@ -15,7 +15,11 @@
         <module>jersey</module>
         <module>template</module>
         <module>oop</module>
-	<module>algorithm-template</module>
+        <module>algorithm-template</module>
+        <module>graphql</module>
+        <module>rabbitmq</module>
+        <module>filters</module>
+        <module>token-provider</module>
     </modules>
 
 </project>
