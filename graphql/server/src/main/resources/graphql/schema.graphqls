@@ -1,0 +1,8 @@
+type Portfolio {
+    id: ID!
+    type: String!
+}
+
+type Query {
+    allPortfolios: [Portfolio!]
+}
