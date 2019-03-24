@@ -9,6 +9,7 @@ import net.cpollet.read.v2.api.domain.Response;
 import net.cpollet.read.v2.impl.stages.AttributeConversionStage;
 import net.cpollet.read.v2.impl.stages.ConversionException;
 import net.cpollet.read.v2.impl.stages.ExpandStarStage;
+import net.cpollet.read.v2.impl.stages.FilteringStage;
 import net.cpollet.read.v2.impl.stages.IdsValidationStage;
 import net.cpollet.read.v2.impl.stages.LogDeprecatedStage;
 import net.cpollet.read.v2.impl.stages.RequestExecutionStage;
@@ -44,7 +45,9 @@ public class ReadImpl<IdType extends Id> implements Read<IdType> {
                                                 new IdsValidationStage<>(
                                                         new ValueConversionStage<>(
                                                                 new ValueConversionStage<>(
-                                                                        new RequestExecutionStage<>(),
+                                                                        new FilteringStage<>(
+                                                                                new RequestExecutionStage<>()
+                                                                        ),
                                                                         converter
                                                                 ),
                                                                 caster
