@@ -1,5 +1,5 @@
 *.iml
-*/target
+**/target
 .idea
 read-api/api/target
 read-api/client/target
